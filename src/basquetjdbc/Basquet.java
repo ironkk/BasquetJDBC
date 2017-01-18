@@ -43,16 +43,6 @@ public List<Jugador> listadoJugadoresPorNombre(String nombre);
                     10,65,"BASE", t);
 
             
-            
-            // SELECT DE TODOS LOS PLAYERS
-            List<Player> allPlayers = gestor.selectAllPlayers();
-
-            System.out.println("LIST OF PlAYERS");
-            System.out.println(allPlayers.size());
-            for (Player pr : allPlayers) {
-                System.out.println(pr);
-            }
-            
             //1
             gestor.insertTeam(t);
             System.out.println("Team dado de alta");
@@ -73,9 +63,45 @@ public List<Jugador> listadoJugadoresPorNombre(String nombre);
             gestor.deletePlayer(p);
             
             //6
-            System.out.println("NAME?");
-            String name = br.readLine();   
-            gestor.selectPlayerByName(name);
+            gestor.selectPlayerByName("Ironk");
+            
+            //7
+            gestor.PlayersByName("Ir");
+            
+            //8
+            gestor.PlayersByBaskets(2);
+            
+            //9
+            gestor.PlayersBynAssists(3);
+            
+            //10
+            gestor.PlayersBynPos("BASE");
+            //11
+            gestor.PlayersByFecha(todayLocalDate);
+            
+            //12
+            gestor.PlayersGroupByPos("BASE");
+            
+            //13
+            
+            //14
+            
+            //15
+           gestor.TeamByCity("IGUALADA");
+            //16
+            
+            //17
+            
+            //18
+            
+            //19
+            List<Player> allPlayers = gestor.selectAllPlayers();
+
+            System.out.println("LIST OF PlAYERS");
+            System.out.println(allPlayers.size());
+            for (Player pr : allPlayers) {
+                System.out.println(pr);
+            }
 
 
             
