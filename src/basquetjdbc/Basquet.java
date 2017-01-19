@@ -89,7 +89,7 @@ public List<Jugador> listadoJugadoresPorNombre(String nombre);
             //15
            gestor.TeamByCity("IGUALADA");
             //16
-            
+            gestor.PlayersByTeam("FCBLASA");
             //17
             
             //18

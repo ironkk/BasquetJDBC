@@ -216,9 +216,9 @@ public class BasquetJDBC {
 
     }
     //16. Listado de todos los jugadores de un equipo, a partir del nombre completo del equipo.
-        public List<Player> PlayersByTeam() throws SQLException {
+        public List<Player> PlayersByTeam(String name) throws SQLException {
          List<Player> players = new ArrayList<>();
-        String query = "select * from player where name = ?";
+        String query = "select payer.name from player p, team t where t.name=p.name and p.name='name'";
          Statement st = conexion.createStatement();
         ResultSet rs = st.executeQuery(query);
          while (rs.next()) {
@@ -246,18 +246,17 @@ public class BasquetJDBC {
 
     }
     //18. Devuelve el jugador que más canastas ha realizado de un equipo determinado como parámetro.
-    public List<Player> PlayersBynBaskets() throws SQLException {
-         List<Player> players = new ArrayList<>();
-        String query = "select * from player where name = ?";
+    public Player PlayersBynBaskets(String name) throws SQLException {
+        String query = "select name.player from player p, team t where p.name=t.name and nbaskets > nbaskets+1 and t.name ='name'";
          Statement st = conexion.createStatement();
         ResultSet rs = st.executeQuery(query);
          while (rs.next()) {
             Player p = new Player();
             p.setName(rs.getString("PLAYER NAME"));
-            players.add(p);
+      
          }
         rs.close();
-        return players;
+        return rs;
 
     }
     
