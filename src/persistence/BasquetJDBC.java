@@ -19,7 +19,7 @@ import model.Team;
 public class BasquetJDBC {
 
     private Connection conexion;
-
+//xab
     // 1. Insertar un equipo nuevo en la bbdd 
     public void insertTeam(Team t) throws SQLException {
         String insert = "insert into team values (?,?,?)";
