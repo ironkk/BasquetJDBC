@@ -95,5 +95,10 @@ public class Player {
         this.team = team;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" + "name=" + name + ", birth=" + birth + ", nassists=" + nassists + ", nbaskets=" + nbaskets + ", nrebots=" + nrebots + ", pos=" + pos + ", team=" + team + '}';
+    }
+
     
 }

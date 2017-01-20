@@ -21,13 +21,19 @@ public class Team {
     
     private LocalDate creation;
 
-    public Team() {
-    }
 
     public Team(String city, String name, LocalDate creation) {
         this.city = city;
         this.name = name;
         this.creation = creation;
+    }
+
+    public Team(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Team() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -57,4 +63,10 @@ public class Team {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+        return "Team{" + "city=" + city + ", name=" + name + ", creation=" + creation + '}';
+    }
+
+    
 }
