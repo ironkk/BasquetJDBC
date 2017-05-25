@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-import model.Player;
-import model.Team;
+import model.Equipo;
+import model.Jugador;
 import persistence.BasquetJDBC;
 
 /**
@@ -34,92 +34,70 @@ public class Basquet {
     public static void main(String[] args) throws IOException {
         BasquetJDBC gestor = new BasquetJDBC();
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            //COnexion a la base de datos
+            //Conexion a la base de datos
             System.out.println("Estableciendo conexión con la bbdd...");
-            gestor.connect();
-            System.out.println("Conectado a la bbdd de players(JUGADORES)");
-            LocalDate todayLocalDate = LocalDate.now(ZoneId.of("MADRID"));
-            Team t = new Team("FCBLASA", "BCN", todayLocalDate);
-            Player p = new Player("Ironk", todayLocalDate, 4,
-                    10, 65, "BASE", t);
+            gestor.conectar();
+            System.out.println("Conectado a la bbdd restaurant");
+            LocalDate todayLocalDate = LocalDate.now( ZoneId.of( "España" ) );
+            Equipo e = new Equipo("yeaaah", "Barcelona", todayLocalDate);
+            Jugador j = new Jugador("yiyiaaah", todayLocalDate, 223,
+                    553,335,"alero", e);
 
-            //1
-            gestor.insertTeam(t);
-            System.out.println("Team dado de alta");
+            /*//Insert Equipo
+            gestor.insertEquipo(e);
+            System.out.println("Equipo dado de alta.");
+            //Insert Jugador
+            gestor.insertJugador(j);*/
 
-            //2
-            gestor.insertPlayer(p);
-            System.out.println("Player dado de alta.");
+            List<Jugador> todosJugadores = gestor.selectAllJugador();
 
-            //3
-            System.out.println("MODIFY PLAYER STATS");
-            gestor.UpdateStatisticsPlayers(p);
-
-            //4
-            System.out.println("MODIFY TEAM OF PLAYER");
-            gestor.updateTeamOfPlayer(p, t);
-
-            //5
-            System.out.println("DELETE PLAYER");
-            gestor.deletePlayer(p);
-
-            //6
-            System.out.println("SELECT PLAYER BY NAME");
-            gestor.selectPlayerByName("Ironk");
-
-            //7
-            System.out.println("SELECT PLAYER BY % NAME %");
-            gestor.PlayersByName("Ir");
-
-            //8
-            System.out.println("SELECT PLAYER BY BASKETS");
-            gestor.PlayersByBaskets(2);
-
-            //9
-            System.out.println("SELECT PLAYER BY Nº ASSISTS");
-            gestor.PlayersBynAssists(1, 20);
-
-            //10
-            System.out.println("SELECT PLAYER BY POS");
-            gestor.PlayersBynPos("BASE");
-            //11
-            System.out.println("SELECT PLAYER BY VIRTH");
-            gestor.PlayersByFecha(todayLocalDate);
-
-            //12
-            System.out.println("ORDER PLAYER BY POS");
-            gestor.PlayersGroupByPos("BASE");
-
-            //13
-            //STATSBYPOSITION
-            //14
-            //RANKING
-            //15
-            System.out.println("TEAMS BY CITY");
-            gestor.TeamByCity("IGUALADA");
-            //16
-            System.out.println("PLAYERS BY TEAM");
-            gestor.PlayersByTeam(t);
-            //17
-            System.out.println("SELECT ALL PLAYERS BY POS");
-            gestor.SelectAllPlayersByPos(t, "BASE");
-            //18
-            System.out.println("SELECT PLAYER BY MAX NBASKETS FROM A TEAM");
-            gestor.PlayersBynBaskets(t);
-            //19
-            List<Player> allPlayers = gestor.selectAllPlayers();
-
-            System.out.println("LIST OF PlAYERS");
-            System.out.println(allPlayers.size());
-            for (Player pr : allPlayers) {
-                System.out.println(pr);
+            System.out.println("Listado de jugadores");
+            System.out.println(todosJugadores.size());
+            for (Jugador c : todosJugadores) {
+                System.out.println(c);
             }
 
-            gestor.disconnect();
+            System.out.println("Modificar stats jugaodr");
+            gestor.updateStatsJugador(j, 2, 777, 888);
+
+            System.out.println("Modificar equipo de jugador:");
+            gestor.updateEquipoDeJugador(j, e);
+
+            Jugador a = new Jugador("yoyoww", todayLocalDate, 1,
+                    2,3,"Base", e);
+            gestor.insertJugador(a);
+            gestor.deleteJugador(a);
+            System.out.println("Jugador: "+gestor.getJugador("Jugador"));
+
+            Jugador jugador = gestor.getJugador("Jugador");
+
+            System.out.println("jugador 2: "+gestor.getJugadorContaining("Jug"));
+
+            System.out.println("Jugadores mas canastas de 10: "+gestor.getJugadoresMasCanastasQue(10));
+
+            System.out.println("Jugadores canastas entre 1 y 6: "+gestor.getJugadoresCanastasBetween(1, 6));
+
+            System.out.println("Jugadores posicion alero"+gestor.getJugadoresByPosicion("alero"));
+
+            System.out.println("Jugadores nacidos antes de: "+gestor.getJugadoresNacidosAntesDe(todayLocalDate));
+
+
+            System.out.println("ranking: "+gestor.getRankingCanastas());
+
+            System.out.println("Posicion en el ranking: "+gestor.getPosicionRankingCanastas(jugador));
+
+            System.out.println("Equipos por localidad: "+gestor.getEquiposByLocalidad("Barcelona"));
+
+            System.out.println("Jugadores de un equipo: "+gestor.getJugadoresByEquipo("yeaaah"));
+
+            System.out.println("Jugadores de un equipo de unamisma posicion: "+gestor.getJugadoresEquipoByPosicion("yeaaah", "alero"));
+
+            System.out.println("Maximo goaler del equipo yeaaah: "+gestor.getMaximoGoalerEquipo("yeaaah"));
+            
+            gestor.desconectar();
             System.out.println("Cerrada la conexión con la bbdd.");
         } catch (SQLException ex) {
-            System.out.println("Error con la BBDD: " + ex.getCause());
+            System.out.println("Error con la BBDD: "+ex.getMessage());
         }
     }
 
